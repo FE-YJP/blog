@@ -1,6 +1,7 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-family: "微软雅黑";
 }
 
 a {
