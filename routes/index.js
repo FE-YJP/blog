@@ -6,13 +6,14 @@ router.get('/', function (req, res, next) {
   console.log(req.session);
   res.render('index', {
     username: req.session.username,
-    isLogin: req.session.isLogin
+    isLogin: req.session.isLogin,
+    isVip: req.session.isVip,
   });
 });
 //注册
 router.get("/signup", function (req, res) {
-  req.session.isAdmin = false;
-  req.session.isVip = false;
+  // req.session.isAdmin = false;
+  // req.session.isVip = false;
   res.render("signup", {
     isVip: req.session.isVip,
     isAdmin: req.session.isAdmin,
