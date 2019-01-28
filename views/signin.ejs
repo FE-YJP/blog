@@ -15,11 +15,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4 well">
-                <form action="/signup" method="POST" role="form">
+                <form role="form">
+                    <% if(isAdmin){%>
+                    <h3>Admin登录</h3>
+                    <%}else{%>
                     <h3>登录</h3>
                     <span>未注册？</span>
                     <a href="/signup">请注册</a>
-
+                    <%}%>
                     <div class="form-group">
                         <label for="">用户名</label>
                         <input type="text" class="form-control" id="username" name="username">
@@ -30,14 +33,52 @@
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
 
-
-                    <button type="submit" class="btn btn-primary">登录</button>
+                    <% if(isAdmin){%>
+                    <button type="submit" class="btn btn-primary" id="admin">登录</button>
+                    <%}else{%>
+                    <button type="submit" class="btn btn-primary" id="btn">登录</button>
+                    <%}%>
                 </form>
             </div>
         </div>
     </div>
 
-
+    <script>
+        $(function () {
+            $("#btn").on("click", function (e) {
+                e.preventDefault();
+                $.post("/users/signin", {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                }, function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        alert("用户或密码不正确,请重试");
+                    }
+                    if (data == 1) {
+                        alert("登陆成功");
+                        location.assign("/");
+                    }
+                })
+            });
+            $("#admin").on("click", function (e) {
+                e.preventDefault();
+                $.post("/users/admin", {
+                    username: $("#username").val(),
+                    password: $("#password").val()
+                }, function (data) {
+                    console.log(data);
+                    if (data == 0) {
+                        alert("用户或密码不正确,请重试");
+                    }
+                    if (data == 1) {
+                        alert("登陆成功");
+                        location.assign("/admin");
+                    }
+                })
+            });
+        });
+    </script>
 </body>
 
 </html>
