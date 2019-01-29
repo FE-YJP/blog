@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery.cookie.js"></script>
 </head>
 
 <body>
@@ -61,7 +62,7 @@
                 console.log(theme, title, subtitle, content);
                 if (theme && title && content) {
                     $.post("/users/article", {
-                        username: username,
+                        username: $.cookie("username"),
                         theme: theme,
                         title: title,
                         sub: subtitle,
