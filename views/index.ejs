@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <script src="/javascripts/jquery.min.js"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/jquery.cookie.js"></script>
 </head>
 
 <body>
@@ -123,7 +124,28 @@
     </div>
   </div>
   <%- include("footer.ejs") -%>
+  <script>
+    $(function () {
+      $(document).on("click", "button.pay", function () {
+        $.post("/users/vip", {
 
+        }, function (data) {
+
+          if (data == 1) {
+            confirm("充值成功");
+            location.assign("/");
+          }
+          if (data == 0) {
+            confirm("已是VIP,无需充值");
+            location.assign("/");
+          }
+        });
+      });
+      $(document).on("click", "#layout", function () {
+        $.removeCookie("username");
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -28,7 +28,7 @@
     </form>
     <ul class="nav navbar-nav pull-right">
         <li class="">
-            <a href="/layout">注销</a>
+            <a id="layout" href="/layout">注销</a>
         </li>
         <li>
             <a href="/signin">登录</a>
@@ -77,22 +77,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $(document).on("click", "button.pay", function () {
-            $.post("/users/vip", {
-
-            }, function (data) {
-
-                if (data == 1) {
-                    confirm("充值成功");
-                    location.assign("/");
-                }
-                if (data == 0) {
-                    confirm("已是VIP,无需充值");
-                    location.assign("/");
-                }
-            });
-        });
-    });
-</script>
