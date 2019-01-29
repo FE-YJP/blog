@@ -33,9 +33,18 @@ router.get("/signin", function (req, res) {
   res.render("signin", {
     isVip: req.session.isVip,
     isAdmin: req.session.isAdmin,
+    isLogin: req.session.isLogin
   });
 });
-
+//写博客页面
+router.get("/article", function (req, res) {
+  res.render("article", {
+    isVip: req.session.isVip,
+    isAdmin: req.session.isAdmin,
+    isLogin: req.session.isLogin,
+    username: req.session.username
+  });
+});
 //注销
 router.get("/layout", function (req, res) {
   req.session.username = null;

@@ -10,9 +10,11 @@
         <li class="active">
             <a href="/">首页</a>
         </li>
+        <% if(isLogin) { %>
         <li>
-            <a href="/artical">写博客</a>
+            <a href="/article">写博客</a>
         </li>
+        <% } %>
         <% if(isVip){%>
         <li>
             <a href="/video">VIP视频</a>
