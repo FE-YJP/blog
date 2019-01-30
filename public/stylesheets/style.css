@@ -7,3 +7,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+/* 省略号 */
+.ellipsis {
+  display: inline-block;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

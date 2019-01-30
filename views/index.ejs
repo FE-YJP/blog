@@ -16,16 +16,16 @@
   <%- include("header.ejs") -%>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3">
-        <hr>
+      <div class="col-md-5">
+        <h3>博客分类</h3>
         <div role="tabpanel">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
-              <a href="#home" aria-controls="home" role="tab" data-toggle="tab">HTML</a>
+              <a href="#html" aria-controls="home" role="tab" data-toggle="tab">HTML</a>
             </li>
             <li role="presentation">
-              <a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">CSS</a>
+              <a href="#css" aria-controls="tab" role="tab" data-toggle="tab">CSS</a>
             </li>
             <li role="presentation">
               <a href="#js" aria-controls="tab" role="tab" data-toggle="tab">Javascript</a>
@@ -34,32 +34,42 @@
 
           <!-- Tab panes -->
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">
+            <div role="tabpanel" class="tab-pane active" id="html">
               <div class="list-group">
-                <a href="#" class="list-group-item">标签</a>
-                <a href="#" class="list-group-item">语法</a>
-                <a href="#" class="list-group-item">HTML5</a>
+
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="tab">
+            <div role="tabpanel" class="tab-pane" id="css">
               <div class="list-group">
-                <a href="#" class="list-group-item">CSS3</a>
-                <a href="#" class="list-group-item">动画</a>
-                <a href="#" class="list-group-item">Sass</a>
+               
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="js">
               <div class="list-group">
-                <a href="#" class="list-group-item">基础</a>
-                <a href="#" class="list-group-item">ES6</a>
-                <a href="#" class="list-group-item">设计模式</a>
-                <a href="#" class="list-group-item">模块化</a>
-                <a href="#" class="list-group-item">node.js</a>
+                
               </div>
             </div>
           </div>
         </div>
-
+        <nav aria-label="Page navigation">
+          <ul class="pagination ">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+            </li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
       </div>
       <div class="col-md-7">
@@ -113,36 +123,53 @@
     </div>
   </div>
   <hr>
-  <div class="container">
+  <!-- <div class="container">
+    <h3>博客文章列表</h3>
     <div class="row">
-      <div class="col-md-6">
-        <div class="well"></div>
-      </div>
-      <div class="col-md-6">
-        <div class="well"></div>
+      <div class="col-md-12">
+        <div class="well">
+          <dl class="dl-horizontal">
+
+          </dl>
+        </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <%- include("footer.ejs") -%>
   <script>
     $(function () {
-      $(document).on("click", "button.pay", function () {
-        $.post("/users/vip", {
-
-        }, function (data) {
-
-          if (data == 1) {
-            confirm("充值成功");
-            location.assign("/");
-          }
-          if (data == 0) {
-            confirm("已是VIP,无需充值");
-            location.assign("/");
-          }
+      let html = $("#html");
+      let css = $("#css");
+      let js = $("#js");
+      $.get('/html', function (data) {
+        data.forEach((item) => {
+          var str =
+            `
+          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
+                  <span class="pull-right">${item.createtime}</span></a>
+          `;
+          html.find("div").append(str);
         });
       });
-      $(document).on("click", "#layout", function () {
-        $.removeCookie("username");
+      $.get('/css', function (data) {
+        data.forEach((item) => {
+          var str =
+            `
+          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
+                  <span class="pull-right">${item.createtime}</span></a>
+          `;
+          css.find("div").append(str);
+        });
+      });
+      $.get('/js', function (data) {
+        data.forEach((item) => {
+          var str =
+            `
+          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
+                  <span class="pull-right">${item.createtime}</span></a>
+          `;
+          js.find("div").append(str);
+        });
       });
     });
   </script>

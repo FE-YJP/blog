@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        博客
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery.cookie.js"></script>
+</head>
+
+<body>
+    <%- include("header") -%>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                <ul class="list-group" id="list">
+                    <!-- 文章内容 -->
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            //匹配到换行用<br>
+            var str = decodeURI(location.search).split("=")[1];
+            $.get("/detail/detail", {
+                title: str,
+            }, function (data) {
+                data.forEach((item) => {
+                    var con = item.content.replace(/\n/g, "<br>");
+                    var str =
+                        `
+                    <li class="list-group-item">
+                        <h2>主题:${item.theme}</h2>
+                        <h3>标题:${item.title}</h3>
+                        <h5>副标题:${item.sub}</h5>
+                        <h6>作者:${item.username}</h6>
+                        <h6>发表时间:${item.createtime}</h6>
+                        <div class="well">
+                            ${con}
+                        </div>
+                    </li>
+                    `;
+                    $("#list").append(str);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

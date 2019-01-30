@@ -52,30 +52,7 @@
 
         </div>
     </div>
-    <script>
-        $(function () {
-            $("#send").on("click", function () {
-                var theme = $("#theme").val();
-                var title = $("#title").val();
-                var subtitle = $("#subtitle").val();
-                var content = $("#content").val();
-                console.log(theme, title, subtitle, content);
-                if (theme && title && content) {
-                    $.post("/users/article", {
-                        username: $.cookie("username"),
-                        theme: theme,
-                        title: title,
-                        sub: subtitle,
-                        content: content
-                    }, function (data) {
-                        console.log(data);
-                    });
-                } else {
-                    alert("主题,标题,内容不能为空");
-                }
-            });
-        })
-    </script>
+    <script src="/javascripts/article.js"></script>
 </body>
 
 </html>

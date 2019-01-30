@@ -1,19 +1,57 @@
 var express = require('express');
 var router = express.Router();
-
+//引入数据库
+var mongodb = require("mongodb").MongoClient;
+var url = "mongodb://localhost:27017";
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log(req.session);
   res.render('index', {
     username: req.session.username,
     isLogin: req.session.isLogin,
     isVip: req.session.isVip,
   });
 });
+//获取文章列表
+router.get('/html', (req, res) => {
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.find({
+      "theme": "html"
+    }).toArray((err, result) => {
+      res.send(result);
+    });
+  });
+});
+router.get('/css', (req, res) => {
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.find({
+      "theme": "css"
+    }).toArray((err, result) => {
+      res.send(result);
+    });
+  });
+});
+router.get('/js', (req, res) => {
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.find({
+      "theme": "javascript"
+    }).toArray((err, result) => {
+      res.send(result);
+    });
+  });
+});
 //注册
 router.get("/signup", function (req, res) {
-  // req.session.isAdmin = false;
-  // req.session.isVip = false;
+  req.session.isAdmin = false;
+  req.session.isVip = false;
   res.render("signup", {
     isVip: req.session.isVip,
     isAdmin: req.session.isAdmin,
@@ -23,7 +61,7 @@ router.get("/signup", function (req, res) {
 router.get("/admin", function (req, res) {
   res.render("admin", {
     isAdmin: req.session.isAdmin,
-    admin: req.session.admin
+    username: req.session.username
   });
 });
 //登录
