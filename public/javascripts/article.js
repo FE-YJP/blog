@@ -17,8 +17,11 @@ $(function () {
                     if (data == 1) {
                         var art = confirm("发表成功,是否查看");
                         if (art) {
-                            location.assign("/detail");
+                            location.assign("/detail?title=" + title);
                         }
+                    }
+                    if (data == 0) {
+                        alert("标题重复,亲更改标题")
                     }
                 });
             } else {

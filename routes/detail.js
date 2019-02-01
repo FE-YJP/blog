@@ -19,15 +19,43 @@ router.get('/detail', (req, res) => {
         if (err) throw err;
         var dbase = db.db("mydb");
         var cols = dbase.collection("article");
-        cols.find({
-            "title": title
-        }).toArray((err, result) => {
+        cols.aggregate([{
+            $lookup: {
+                from: 'comment', // 右集合
+                localField: 'title', // 左集合 join 字段
+                foreignField: 'title', // 右集合 join 字段
+                as: 'comments' // 新生成字段（类型array）
+            }
+        }]).toArray((err, result) => {
             if (err) throw err;
-            res.send(result);
+            result.forEach((item, index) => {
+                if (item.title == title) {
+                    res.send(item);
+                }
+            });
+        });
+
+    });
+});
+//提交评论
+router.post('/', (req, res) => {
+    let data = req.body;
+    console.log(data);
+    mongodb.connect(url, (err, db) => {
+        if (err) throw err;
+        var dbase = db.db("mydb");
+        var cols = dbase.collection("comment");
+        cols.insertOne(data, (err, result) => {
+            if (err) throw err;
+            if (result) {
+                res.send("1");
+            } else {
+                res.send("0");
+            }
+
         });
     });
 });
-
 
 
 module.exports = router;

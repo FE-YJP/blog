@@ -15,6 +15,9 @@
         table {
             visibility:hidden;
         }
+        #blogs{
+            visibility: hidden;
+        }
         table * {
             text-align: center;
         }
@@ -119,6 +122,55 @@
                         </td>
                     </tr>
                 </table>
+                <div id="blogs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#html" aria-controls="home" role="tab" data-toggle="tab">HTML</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#css" aria-controls="tab" role="tab" data-toggle="tab">CSS</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#js" aria-controls="tab" role="tab" data-toggle="tab">Javascript</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="html">
+                            <div class="list-group">
+
+                            </div>
+                            <nav>
+                                <ul class="pagination html">
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="css">
+                            <div class="list-group">
+
+                            </div>
+                            <nav>
+                                <ul class="pagination css">
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="js">
+                            <div class="list-group">
+
+                            </div>
+                            <nav>
+                                <ul class="pagination js">
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="col-md-4">
 
@@ -145,7 +197,7 @@
             </div>
         </div>
     </div>
-
+    <script src="/javascripts/index.js"></script>
     <script src="/javascripts/admin.js"></script>
 </body>
 

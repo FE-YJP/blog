@@ -32,22 +32,77 @@
             $.get("/detail/detail", {
                 title: str,
             }, function (data) {
-                data.forEach((item) => {
-                    var con = item.content.replace(/\n/g, "<br>");
-                    var str =
-                        `
+                var con = data.content.replace(/\n/g, "<br>");
+                var str =
+                    `
                     <li class="list-group-item">
-                        <h2>主题:${item.theme}</h2>
-                        <h3>标题:${item.title}</h3>
-                        <h5>副标题:${item.sub}</h5>
-                        <h6>作者:${item.username}</h6>
-                        <h6>发表时间:${item.createtime}</h6>
+                        <h2>主题:${data.theme}</h2>
+                        <h3>标题:${data.title}</h3>
+                        <h5>副标题:${data.sub}</h5>
+                        <h6>作者:${data.username}</h6>
+                        <h6>发表时间:${data.createtime}</h6>
                         <div class="well">
                             ${con}
                         </div>
-                    </li>
+                        <h5>评论</h5>
+                        <div class="form-group comment">
+                            <div class="form-group">
+                            <textarea class="form-control content" placeholder="在此处评论~"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary com_btn">发表评论</button>
+                        </div>
                     `;
-                    $("#list").append(str);
+                var com = "<ul class='list-group com_list'>";
+                var com_str = "";
+                if (data.comments) {
+                    data.comments.forEach((item) => {
+                        com_str +=
+                            `
+                        <li class="list-group-item clear">
+                            <h5>用户名:${item.com_user}</h5>
+                            <p>
+                                ${item.com_con}
+                            </p>
+                            <span class="pull-right">${item.com_time}</span>
+                        </li>
+                        `;
+                    });
+                    com += com_str;
+                }
+                com += "</ul>";
+                str = str + com + "</li>";
+                $("#list").append(str);
+
+            });
+            //评论功能
+            $(document).on("click", "button.com_btn", function () {
+                var con = $("textarea.content").val();
+                $.post('/detail', {
+                    title: str,
+                    com_user: $.cookie("username"),
+                    com_time: new Date().toLocaleString(),
+                    com_con: con,
+
+                }, function (data) {
+                    if (data == 1) {
+                        alert("评论成功");
+                        // location.reload();
+                        //显示增加评论
+                        var str =
+                            `
+                        <li class="list-group-item clear">
+                            <h5>用户名:${$.cookie("username")}</h5>
+                            <p>
+                                ${con}
+                            </p>
+                            <span class="pull-right">${new Date().toLocaleString()}</span>
+                        </li>
+                        `;
+                        $(".com_list").append(str);
+                    }
+                    if (data == 0) {
+                        alert("评论失败");
+                    }
                 });
             });
         });

@@ -60,6 +60,7 @@ $(function () {
         });
         $("#blog").on("click", function () {
             $(this).addClass("active").siblings().removeClass("active");
+            $("#blogs").show().css("visibility", "visible").siblings().hide();
         });
         //删除
         $(document).on("click", "button.btn-danger", function () {

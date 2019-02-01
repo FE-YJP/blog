@@ -16,3 +16,12 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  visibility: hidden;
+}

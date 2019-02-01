@@ -38,38 +38,35 @@
               <div class="list-group">
 
               </div>
+              <nav>
+                <ul class="pagination html">
+
+                </ul>
+              </nav>
             </div>
             <div role="tabpanel" class="tab-pane" id="css">
               <div class="list-group">
-               
+
               </div>
+              <nav>
+                <ul class="pagination css">
+
+                </ul>
+              </nav>
             </div>
             <div role="tabpanel" class="tab-pane" id="js">
               <div class="list-group">
-                
+
               </div>
+              <nav>
+                <ul class="pagination js">
+
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
-        <nav aria-label="Page navigation">
-          <ul class="pagination ">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-            </li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+
 
       </div>
       <div class="col-md-7">
@@ -136,43 +133,8 @@
     </div>
   </div> -->
   <%- include("footer.ejs") -%>
-  <script>
-    $(function () {
-      let html = $("#html");
-      let css = $("#css");
-      let js = $("#js");
-      $.get('/html', function (data) {
-        data.forEach((item) => {
-          var str =
-            `
-          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
-                  <span class="pull-right">${item.createtime}</span></a>
-          `;
-          html.find("div").append(str);
-        });
-      });
-      $.get('/css', function (data) {
-        data.forEach((item) => {
-          var str =
-            `
-          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
-                  <span class="pull-right">${item.createtime}</span></a>
-          `;
-          css.find("div").append(str);
-        });
-      });
-      $.get('/js', function (data) {
-        data.forEach((item) => {
-          var str =
-            `
-          <a href="/detail?title=${item.title}" class="list-group-item"><span class="ellipsis">${item.title}</span>
-                  <span class="pull-right">${item.createtime}</span></a>
-          `;
-          js.find("div").append(str);
-        });
-      });
-    });
-  </script>
+  <script src="/javascripts/index.js"></script>
+
 </body>
 
 </html>

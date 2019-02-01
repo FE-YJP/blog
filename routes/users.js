@@ -130,11 +130,21 @@ router.post("/article", function (req, res) {
     if (err) throw err;
     let dbase = db.db("mydb");
     let article = dbase.collection("article");
-    article.insertOne(data, (err, result) => {
+    article.find({
+      title: data.title
+    }).toArray((err, re) => {
       if (err) throw err;
-      console.log(result);
-      res.send("1");
+      if (re.length == 0) {
+        article.insertOne(data, (err, result) => {
+          if (err) throw err;
+          res.send("1");
+        });
+      } else {
+        //标题重复
+        res.send("0");
+      }
     });
+
   });
 });
 
