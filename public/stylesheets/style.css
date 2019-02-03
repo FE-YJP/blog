@@ -11,7 +11,7 @@ a {
 /* 省略号 */
 .ellipsis {
   display: inline-block;
-  width: 150px;
+  width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

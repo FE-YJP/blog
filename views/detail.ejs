@@ -76,20 +76,23 @@
             });
             //评论功能
             $(document).on("click", "button.com_btn", function () {
-                var con = $("textarea.content").val();
-                $.post('/detail', {
-                    title: str,
-                    com_user: $.cookie("username"),
-                    com_time: new Date().toLocaleString(),
-                    com_con: con,
+                if ($.cookie("username")) {
 
-                }, function (data) {
-                    if (data == 1) {
-                        alert("评论成功");
-                        // location.reload();
-                        //显示增加评论
-                        var str =
-                            `
+
+                    var con = $("textarea.content").val();
+                    $.post('/detail', {
+                        title: str,
+                        com_user: $.cookie("username"),
+                        com_time: new Date().toLocaleString(),
+                        com_con: con,
+
+                    }, function (data) {
+                        if (data == 1) {
+                            alert("评论成功");
+                            // location.reload();
+                            //显示增加评论
+                            var str =
+                                `
                         <li class="list-group-item clear">
                             <h5>用户名:${$.cookie("username")}</h5>
                             <p>
@@ -98,12 +101,18 @@
                             <span class="pull-right">${new Date().toLocaleString()}</span>
                         </li>
                         `;
-                        $(".com_list").append(str);
+                            $(".com_list").append(str);
+                        }
+                        if (data == 0) {
+                            alert("评论失败");
+                        }
+                    });
+                } else {
+                    var p = confirm("请登录");
+                    if (p) {
+                        location.assign('/signin');
                     }
-                    if (data == 0) {
-                        alert("评论失败");
-                    }
-                });
+                }
             });
         });
     </script>

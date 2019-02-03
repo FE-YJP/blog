@@ -20,6 +20,7 @@ router.get('/html', (req, res) => {
     cols.find({
       "theme": "html"
     }).toArray((err, result) => {
+      if (err) throw err;
       res.send(result);
     });
   });
@@ -44,7 +45,27 @@ router.get('/js', (req, res) => {
     cols.find({
       "theme": "javascript"
     }).toArray((err, result) => {
+      if (err) throw err;
       res.send(result);
+    });
+  });
+});
+//搜索博客
+router.get("/search", (req, res) => {
+  var title = req.query.title;
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.find({
+      title: title,
+    }).toArray((err, result) => {
+      if (err) throw err;
+      if (result.length == 0) {
+        res.send("0");
+      } else {
+        res.send(result);
+      }
     });
   });
 });
@@ -81,6 +102,80 @@ router.get("/article", function (req, res) {
     isAdmin: req.session.isAdmin,
     isLogin: req.session.isLogin,
     username: req.session.username
+  });
+});
+//修改博客页面
+router.get("/change", function (req, res) {
+  res.render("change", {
+    isVip: req.session.isVip,
+    isAdmin: req.session.isAdmin,
+    isLogin: req.session.isLogin,
+    username: req.session.username
+  });
+});
+//显示要修改的博客内容
+router.get("/changearticle", (req, res) => {
+  var title = req.query.title;
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.find({
+      title: title
+    }).toArray((err, result) => {
+      if (err) throw err;
+      if (result.length != 0) {
+        res.send(result);
+      } else {
+        res.send("0");
+      }
+    });
+  });
+});
+//修改博客
+router.get("/changeblog", (req, res) => {
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var whereStr = {
+      title: req.query.title
+    }; //查询条件
+    var updateStr = {
+      $set: {
+        "theme": req.query.theme,
+        "title": req.query.title,
+        "sub": req.query.sub,
+        "content": req.query.content,
+      }
+    };
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.updateOne(whereStr, updateStr, (err, result) => {
+      if (err) throw err;
+      if (result) {
+        res.send("1");
+      } else {
+        res.send("0");
+      }
+    });
+  });
+});
+//删除博客
+router.get("/deleteblog", (req, res) => {
+  mongodb.connect(url, (err, db) => {
+    if (err) throw err;
+    var whereStr = {
+      title: req.query.title
+    }; //查询条件
+    var dbase = db.db("mydb");
+    var cols = dbase.collection("article");
+    cols.deleteOne(whereStr, (err, result) => {
+      if (err) throw err;
+      if (result) {
+        res.send("1");
+      } else {
+        res.send("0");
+      }
+    });
   });
 });
 //注销

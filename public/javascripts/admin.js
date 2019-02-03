@@ -3,9 +3,10 @@ $(function () {
         $(document).on("click", "#layout", function () {
             $.removeCookie("username");
         });
-        $.get("/admin/admin", function (data) {
-            data.common.forEach(function (item) {
-                var common =
+        //默认显示数据
+        function GetData(data, type, obj) {
+            data[type].forEach(function (item) {
+                var str =
                     `
                 <tr>
                     <td>${item.username}</td>
@@ -15,52 +16,33 @@ $(function () {
                     </td>
                 </tr>
                 `;
-                $("#commonusers").append(common);
-                $("#commonusers").css("visibility", "visible");
+                obj.append(str);
             });
-            data.admin.forEach(function (item) {
-                var admin =
-                    `
-                <tr>
-                    <td>${item.username}</td>
-                    <td>${item.password}</td>
-                    <td>
-                        <button data-id="${item.username}" data-user="admin" type="button" class="btn btn-danger">删除</button>
-                    </td>
-                </tr>
-                `;
-                $("#adminusers").append(admin);
-            });
-            data.vip.forEach(function (item) {
-                var vip =
-                    `
-                <tr>
-                    <td>${item.username}</td>
-                    <td>${item.password}</td>
-                    <td>
-                        <button data-id="${item.username}" data-user="vip" type="button" class="btn btn-danger">删除</button>
-                    </td>
-                </tr>
-                `;
-                $("#vipusers").append(vip);
-            });
+        }
 
+        $.get("/admin/admin", function (data) {
+            GetData(data, "common", $("#commonusers"));
+            GetData(data, "admin", $("#adminusers"));
+            GetData(data, "vip", $("#vipusers"));
+            $("#commonusers").css("visibility", "visible");
         });
-        $("#common").on("click", function () {
-            $("#commonusers").show().css("visibility", "visible").siblings().hide();
-            $(this).addClass("active").siblings().removeClass("active");
+        //显示当前页
+        function ShowCurrent(obj, cur) {
+            obj.show().css("visibility", "visible").siblings().hide();
+            cur.addClass("active").siblings().removeClass("active");
+        }
+
+        $("#common").click(function () {
+            ShowCurrent($("#commonusers"), $(this))
         });
-        $("#vip").on("click", function () {
-            $("#vipusers").show().css("visibility", "visible").siblings().hide();
-            $(this).addClass("active").siblings().removeClass("active");
+        $("#vip").click(function () {
+            ShowCurrent($("#vipusers"), $(this))
         });
-        $("#admin").on("click", function () {
-            $("#adminusers").show().css("visibility", "visible").siblings().hide();
-            $(this).addClass("active").siblings().removeClass("active");
+        $("#admin").click(function () {
+            ShowCurrent($("#adminusers"), $(this))
         });
-        $("#blog").on("click", function () {
-            $(this).addClass("active").siblings().removeClass("active");
-            $("#blogs").show().css("visibility", "visible").siblings().hide();
+        $("#blog").click(function () {
+            ShowCurrent($("#blogs"), $(this))
         });
         //删除
         $(document).on("click", "button.btn-danger", function () {

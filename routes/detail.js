@@ -40,7 +40,6 @@ router.get('/detail', (req, res) => {
 //提交评论
 router.post('/', (req, res) => {
     let data = req.body;
-    console.log(data);
     mongodb.connect(url, (err, db) => {
         if (err) throw err;
         var dbase = db.db("mydb");

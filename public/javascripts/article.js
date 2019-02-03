@@ -21,7 +21,7 @@ $(function () {
                         }
                     }
                     if (data == 0) {
-                        alert("标题重复,亲更改标题")
+                        alert("标题重复,请更改标题")
                     }
                 });
             } else {

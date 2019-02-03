@@ -34,7 +34,6 @@ router.post("/vip", function (req, res) {
           username: req.session.username
         }).toArray(function (err, re) {
           if (err) throw err;
-          console.log(re[0]);
           if (re.length != 0) {
             //存vip用户
             vipusers.insertOne(re[0], function (err, resu) {
@@ -70,7 +69,6 @@ router.post("/signup", function (req, res) {
         //存数据库
         cols.insertOne(data, function (err, result) {
           if (err) throw err;
-          console.log("存储成功");
         });
       } else {
         //用户已存在
@@ -125,7 +123,6 @@ router.post("/signin", function (req, res) {
 //发表文章
 router.post("/article", function (req, res) {
   var data = req.body;
-  console.log(data);
   mongodb.connect(url, (err, db) => {
     if (err) throw err;
     let dbase = db.db("mydb");

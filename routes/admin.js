@@ -73,14 +73,12 @@ router.post("/delete", function (req, res) {
         }, function (err, result) {
             if (err) throw err;
             res.send("1");
-            // console.log("删除成功");
         });
     });
 });
 //添加用户数据
 router.post("/add", function (req, res) {
     var data = req.body;
-    console.log(data);
     mongodb.connect(url, {
         useNewUrlParser: true
     }, function (err, db) {
@@ -99,11 +97,9 @@ router.post("/add", function (req, res) {
                 }, function (err, result) {
                     if (err) throw err;
                     res.send("1");
-                    console.log("添加成功");
                 });
             } else {
                 res.send("0");
-                console.log("用户存在")
             }
         });
 

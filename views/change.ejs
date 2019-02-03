@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        写博客
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery.cookie.js"></script>
+</head>
+
+<body>
+    <%- include("header.ejs") -%>
+    <div class="container-fluid">
+        <h3>修改博客</h3>
+        <label for="theme">主题</label>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="theme" id="theme" class="form-control">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">Javascript</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" id="title" class="form-control" placeholder="标题">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="text" id="subtitle" class="form-control" placeholder="副标题">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <textarea class="form-control" id="content" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="send" class="btn btn-primary">修改</button>
+            </div>
+
+        </div>
+    </div>
+    <script src="/javascripts/change.js"></script>
+</body>
+
+</html>
