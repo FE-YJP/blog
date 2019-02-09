@@ -41,6 +41,6 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 基本搭建项目完成  
 ###四.database为备份数据库，恢复到本地数据库  
 1.备份数据库命令  
->>mongodump -h dbhost -d dbname -o dbdirectory
+mongodump -h dbhost -d dbname -o dbdirectory  
 2.恢复数据库命令  
->>mongorestore -h <hostname><:port> -d dbname <path>
+mongorestore -h <hostname><:port> -d dbname <path>  
