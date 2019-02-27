@@ -1,4 +1,4 @@
-# blog  
+﻿# blog  
 blogsystem  
 # 1-25搭建环境，完成依赖安装，仅供参考(可克隆)  
 # 自行搭建  
@@ -9,7 +9,7 @@ blogsystem
 此步骤为设置淘宝源，此后命令行使用npm即可(若已安装cnpm，请使用此后命令使用cnpm)  
 3.安装mogodb数据库，自行下载安装，(注意data/db)  
 4.安装框架express  
-npm i express -g  
+npm install express -g  
 若已全局安装忽略此步骤  
 测试安装成功express --version;出现版本号为可以使用express命令,若报错不是命令，可能存在版本问题，需安装npm i express-generator -g  
 此为express命令行工具，再测试express --version出现版本号即可  
